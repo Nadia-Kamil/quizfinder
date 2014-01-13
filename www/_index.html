@@ -37,7 +37,30 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
-            app.initialize();
+            //app.initialize();
         </script>
+		
+		<script type="text/javascript" charset="utf-8">
+
+		
+		function showAlert(message, title) {
+			if (navigator.notification) {
+				navigator.notification.alert(message, null, title, 'OK');
+			} else {
+				alert(title ? (title + ": " + message) : message);
+			}
+		}
+		
+		if(navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				defaultCenter = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+				
+				showAlert('navigation works! lat:' + position.coords.latitude +' lon:' + position.coords.longitude);
+				
+			}, function() {
+			}, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
+		}
+		</script>
+		
     </body>
 </html>
